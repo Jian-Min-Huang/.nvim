@@ -4,6 +4,7 @@ neovim configurations
 
 ```bash
 ln -s ~/.nvim/plugins ~/.config/nvim/lua/plugins
+ln -s ~/.nvim/herdr/config.toml ~/.config/herdr/config.toml
 ```
 
 ```bash

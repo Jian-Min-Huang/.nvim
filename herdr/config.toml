@@ -1,0 +1,41 @@
+onboarding = false
+
+[ui]
+status_indicators = "symbols"
+
+[ui.sidebar.spaces]
+rows = [
+  ["workspace"],
+]
+
+[ui.sidebar.agents]
+rows = [
+  ["workspace", "tab"],
+  ["state_icon", "machine", "agent", "state_text"],
+  ["terminal_title_stripped"], 
+]
+
+[ui.sidebar.agents.rows_by_agent]
+claude = [
+  ["workspace", "tab"],
+  ["state_icon", "machine", {token = "agent", fg = "#d97757"}, "state_text"],
+  ["terminal_title_stripped"],
+]
+codex = [
+  ["workspace", "tab"],
+  ["state_icon", "machine", {token = "agent", fg = "#4b56f5"}, "state_text"],
+  ["terminal_title_stripped"],
+]
+pi = [
+  ["workspace", "tab"],
+  ["state_icon", "machine", {token = "agent", fg = "#5e93b6"}, "state_text"],
+  ["terminal_title_stripped"],
+]
+
+[theme]
+name = "dracula"
+auto_switch = false
+
+[ui.toast]
+delivery = "herdr"
+
