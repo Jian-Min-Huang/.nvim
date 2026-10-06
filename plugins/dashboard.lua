@@ -67,67 +67,118 @@ return {
 				end,
 			})
 
-			-- 天氣一天抓一次，結果存在 TMPDIR，同一天再開 nvim 就直接讀檔
-			local weather_cache = vim.fs.joinpath(vim.env.TMPDIR or "/tmp", "nvim-weather-" .. os.date("%F") .. ".json")
+			-- 外部排程每個整點更新這個檔案，這裡只負責讀
+			local weather_file = vim.fs.normalize("~/Downloads/WeatherInfo.json")
 
-			local function format_weather(json)
+			local function floor_hour(t)
+				local d = os.date("*t", t)
+				d.min, d.sec = 0, 0
+				return os.time(d)
+			end
+			local this_hour = floor_hour(os.time())
+
+			-- 每小時預報 "23°C，下雨" 拆成 { temp = "23°C", condition = "下雨" }；保留原本的位置，位置就代表時段
+			local function parse_hours(hours)
+				local parsed = {}
+				for i, h in ipairs(hours) do
+					if type(h) == "string" then
+						local temp, condition = h:match("^(.-)，(.*)$")
+						parsed[i] = { temp = temp or h, condition = condition or "" }
+					end
+				end
+				return parsed
+			end
+
+			local function parse_weather(json)
 				local ok, w = pcall(vim.json.decode, json or "")
 				if not ok or type(w) ~= "table" then
 					return nil
 				end
-				return ("🌡️ %s-%s 🌧️ %s%% 💧%s%% 🌀 %s km/h"):format(
-					w.min_t,
-					w.max_t,
-					w.precipitation,
-					w.humidity,
-					w.wind
-				)
+				return {
+					-- sunset_time 是 "2026年10月6日 17:36"，只留時間
+					summary = ("🌧️ %s%%  💧 %s%%  🌀 %s km/h  🔆 UV %s  🌇 %s"):format(
+						w.precipitation,
+						w.humidity,
+						w.wind,
+						w.uv,
+						tostring(w.sunset_time):match("%d+:%d+") or ""
+					),
+					hours = type(w.hours) == "table" and parse_hours(w.hours) or {},
+				}
 			end
 
-			local function read_cached_weather()
-				local f = io.open(weather_cache, "r")
+			-- hours[1] 是檔案更新當下那個整點，往後共 25 小時，用檔案修改時間當起點
+			-- 正常檔案是這個整點的，或剛過整點、排程還沒跑完時是上個整點的；其他（漏跑、時間在未來）都當成不可信，不顯示
+			local function read_weather()
+				local stat = vim.uv.fs_stat(weather_file)
+				if not stat then
+					return nil
+				end
+				local start = floor_hour(stat.mtime.sec)
+				local age = (this_hour - start) / 3600
+				if age < 0 or age > 1 then
+					return nil
+				end
+				local f = io.open(weather_file, "r")
 				if not f then
 					return nil
 				end
 				local json = f:read("*a")
 				f:close()
-				return format_weather(json)
+				local w = parse_weather(json)
+				if w then
+					w.start = start
+				end
+				return w
 			end
 
-			local weather = read_cached_weather()
+			local weather = read_weather()
 
-			-- week_header.append 由上到下每一列放什麼；calendar 是多列，會展開
+			-- 從現在的整點開始，每 3 小時一格，共 6 格
+			local forecast_step, forecast_count = 3, 6
+
+			-- 時段、溫度、天氣各一列；每格補成同寬置中，dashboard 逐行置中後欄位才會對齊
+			local function forecast_rows()
+				local columns = {}
+				for i = 0, forecast_count - 1 do
+					local t = this_hour + i * forecast_step * 3600
+					local h = weather.hours[(t - weather.start) / 3600 + 1]
+					if h then
+						table.insert(columns, { os.date("%H", t) .. "時", h.temp, h.condition })
+					end
+				end
+				if #columns == 0 then
+					return {}
+				end
+				local width = 0
+				for _, column in ipairs(columns) do
+					for _, cell in ipairs(column) do
+						width = math.max(width, vim.api.nvim_strwidth(cell))
+					end
+				end
+				local rows = {}
+				for r = 1, 3 do
+					local cells = {}
+					for c, column in ipairs(columns) do
+						local pad = width - vim.api.nvim_strwidth(column[r])
+						cells[c] = string.rep(" ", math.floor(pad / 2))
+							.. column[r]
+							.. string.rep(" ", math.ceil(pad / 2))
+					end
+					rows[r] = table.concat(cells, "  ")
+				end
+				return rows
+			end
+
+			-- week_header.append 由上到下每一列放什麼；沒有天氣就整段拿掉，連空行一起；多列的部分會展開
 			local function header_rows()
 				return vim.iter({
-					weather or "",
 					"",
+					weather and { weather.summary, "", forecast_rows(), "" } or {},
 					calendar,
-				}):flatten():totable()
-			end
-
-			-- 捷徑要跑約 0.6 秒，非同步執行，拿到結果後寫入快取，再讓 dashboard 重畫
-			local function fetch_weather()
-				vim.system(
-					{ "shortcuts", "run", "WeatherInfo" },
-					{ text = true, timeout = 10000 },
-					vim.schedule_wrap(function(res)
-						weather = res.code == 0 and format_weather(res.stdout) or nil
-						if not weather then
-							return
-						end
-						local f = io.open(weather_cache, "w")
-						if f then
-							f:write(res.stdout)
-							f:close()
-						end
-						require("dashboard").opts.config.week_header.append = header_rows()
-						for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-							if vim.bo[buf].filetype == "dashboard" then
-								vim.api.nvim_exec_autocmds("VimResized", { buffer = buf })
-							end
-						end
-					end)
-				)
+				})
+					:flatten(2)
+					:totable()
 			end
 
 			require("dashboard").setup({
@@ -212,9 +263,6 @@ return {
 					},
 				},
 			})
-			if not weather then
-				fetch_weather()
-			end
 		end,
 	},
 }

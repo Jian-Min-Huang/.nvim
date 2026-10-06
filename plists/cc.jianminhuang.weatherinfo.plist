@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>cc.jianminhuang.weatherinfo</string>
+
+    <key>ProgramArguments</key>
+    <!-- 每筆輸出前加時間戳記並換行；保留 shortcuts 的 exit code -->
+    <array>
+        <string>/bin/sh</string>
+        <string>-c</string>
+        <string>out=$(/usr/bin/shortcuts run WeatherInfo); rc=$?; printf '%s %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$out"; exit $rc</string>
+    </array>
+
+    <!-- 每小時整點執行（Minute 0） -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/weatherinfo.out.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/weatherinfo.err.log</string>
+</dict>
+</plist>
