@@ -3,7 +3,9 @@
 ## Installation
 
 ```bash
+brew install --cask ghostty
 brew install neovim herdr
+brew install ripgrep fd lazygit tree-sitter fzf
 ```
 
 ```bash
@@ -18,11 +20,6 @@ mv ~/.cache/nvim{,.bak}
 git clone https://github.com/LazyVim/starter ~/.config/nvim
 
 rm -rf ~/.config/nvim/.git
-```
-
-```bash
-brew install --cask ghostty
-brew install ripgrep fd lazygit tree-sitter fzf
 ```
 
 ## Configuration
@@ -42,4 +39,8 @@ shortcuts run WeatherInfo
 launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/cc.jianminhuang.weatherinfo.plist
 launchctl kickstart -k gui/$(id -u)/cc.jianminhuang.weatherinfo
 launchctl print gui/$(id -u)/cc.jianminhuang.weatherinfo | grep 'last exit'
+```
+
+```bash
+pi --model deepseek/deepseek-flash:medium -p "/skill:add-commit-msg" | tee >(pbcopy)
 ```

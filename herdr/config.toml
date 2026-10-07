@@ -8,13 +8,15 @@ prefix = "ctrl + enter"
 
 [ui]
 status_indicators = "symbols"
+sidebar_min_width = 36
+sidebar_max_width = 36
 prompt_new_tab_name = false
 pane_scrollbars = false
 pane_gaps = false
 show_agent_labels_on_pane_borders = true
 
 [ui.sidebar.spaces]
-rows = [["workspace"], ["branch", "git_status"]]
+rows = [["workspace"], ["branch"], ["git_status"]]
 
 [ui.sidebar.agents]
 rows = [
