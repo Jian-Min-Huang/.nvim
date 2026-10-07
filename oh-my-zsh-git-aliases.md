@@ -46,7 +46,7 @@
 大部分名稱都有固定模式，熟悉之後很好猜：
 
 | 模式 | 意思 | 例子 |
-|---|---|---|
+| --- | --- | --- |
 | `g` + 子指令首字母 + 參數首字母 | git 縮寫 | `gaa` = **g**it **a**dd --**a**ll |
 | 結尾 `!` | amend 或 force，會改寫歷史 | `gc!`、`gpf!` |
 | 結尾 `a` / `c` / `s` | abort / continue / skip | `grba`、`grbc`、`grbs` |
@@ -60,7 +60,7 @@
 ## 綜合
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `g` | `git` | git 本身 |
 | `grt` | `cd "$(git rev-parse --show-toplevel)"` | cd 到 repo 根目錄（git root）。不在 repo 裡就留在原地 |
 | `ghh` | `git help` | 查看說明 |
@@ -69,7 +69,7 @@
 ## add / apply / am
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `ga` | `git add` | 加入暫存區 |
 | `gaa` | `git add --all` | 把所有變更加入暫存區，包含新檔案和刪除 |
 | `gapa` | `git add --patch` | 互動式逐段（hunk）挑選要暫存的內容 |
@@ -86,7 +86,7 @@
 ## bisect（用二分搜尋找出問題 commit）
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gbs` | `git bisect` | bisect 本身 |
 | `gbss` | `git bisect start` | 開始 bisect |
 | `gbsb` | `git bisect bad` | 把目前 commit 標記為 bad |
@@ -98,7 +98,7 @@
 ## blame / branch
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gbl` | `git blame -w` | 逐行顯示作者，忽略空白變更 |
 | `gb` | `git branch` | 列出本地分支 |
 | `gba` | `git branch --all` | 列出本地加遠端分支 |
@@ -115,7 +115,7 @@
 ## checkout / switch
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gco` | `git checkout` | checkout |
 | `gcor` | `git checkout --recurse-submodules` | checkout，連 submodule 一起更新 |
 | `gcb` | `git checkout -b` | 建立新分支並切換過去 |
@@ -130,7 +130,7 @@
 ## cherry-pick
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gcp` | `git cherry-pick` | 把指定的 commit 複製到目前分支 |
 | `gcpa` | `git cherry-pick --abort` | 中止 |
 | `gcpc` | `git cherry-pick --continue` | 繼續（解完衝突後使用） |
@@ -138,7 +138,7 @@
 ## clone / clean
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gcl` | `git clone --recurse-submodules` | clone，連 submodule 一起抓 |
 | `gclf` | `git clone --recursive --shallow-submodules --filter=blob:none --also-filter-submodules` | 快速 clone：先不下載檔案內容、需要時才抓，submodule 也是淺層的，適合大型 repo |
 | `gccd` | `git clone --recurse-submodules ... && cd ...` | clone 完自動 cd 進新目錄 |
@@ -147,7 +147,7 @@
 ## commit
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gc` | `git commit --verbose` | 編輯器裡會顯示 diff，寫訊息時可以邊看邊確認 |
 | `gca` | `git commit --verbose --all` | 自動暫存所有**已追蹤**檔案的變更（不含新檔案） |
 | `gcam` | `git commit --all --message` | `gcam "msg"`：一步完成已追蹤變更的 commit |
@@ -170,7 +170,7 @@
 ## describe / diff
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gdct` | `git describe --tags $(git rev-list --tags --max-count=1)` | 顯示最新的 tag 名稱 |
 | `gd` | `git diff` | 工作目錄 vs 暫存區（尚未暫存的變更） |
 | `gdca` | `git diff --cached` | 暫存區 vs HEAD（即將被 commit 的內容） |
@@ -185,7 +185,7 @@
 ## fetch
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gf` | `git fetch` | fetch |
 | `gfa` | `git fetch --all --tags --prune` | 抓取所有遠端和 tag，並清掉遠端已刪除的分支 |
 | `gfo` | `git fetch origin` | 只抓 origin |
@@ -193,7 +193,7 @@
 ## GUI
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gg` | `git gui citool` | 開啟 git gui 進行 commit |
 | `gga` | `git gui citool --amend` | 以 amend 模式開啟 git gui |
 | `gk` | `gitk --all --branches &!` | 在背景開啟 gitk，顯示所有分支 |
@@ -204,7 +204,7 @@
 `glol` 系列的彩色格式是：hash、分支/tag 標籤、訊息、時間、作者。
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `glo` | `git log --oneline --decorate` | 每個 commit 一行，附分支和 tag 標籤 |
 | `glog` | `git log --oneline --decorate --graph` | `glo` 加上分支圖 |
 | `gloga` | `git log --oneline --decorate --graph --all` | `glog`，涵蓋**所有分支** |
@@ -226,7 +226,7 @@
 ## ls-files / update-index
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gfg` | `git ls-files`，交給 `grep` | `gfg <pattern>`：在已追蹤的檔案清單中搜尋符合的檔名 |
 | `gignore` | `git update-index --assume-unchanged` | 把檔案標記為 assume-unchanged，git 就不再理會你在本地的修改（適合本地設定檔） |
 | `gunignore` | `git update-index --no-assume-unchanged` | 取消上述標記 |
@@ -235,7 +235,7 @@
 ## merge
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gm` | `git merge` | merge |
 | `gma` | `git merge --abort` | 中止 |
 | `gmc` | `git merge --continue` | 繼續 |
@@ -249,7 +249,7 @@
 ## pull
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gl` | `git pull` | pull |
 | `gpr` | `git pull --rebase` | 把你的 commit 接在遠端的 commit 後面，不產生 merge commit |
 | `gprv` | `git pull --rebase -v` | `gpr`，輸出詳細資訊 |
@@ -268,7 +268,7 @@
 ## push
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gp` | `git push` | push |
 | `gpd` | `git push --dry-run` | 顯示會推送什麼，但不實際推送 |
 | `gpv` | `git push --verbose` | 輸出詳細資訊的 push |
@@ -288,7 +288,7 @@
 ## rebase
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `grb` | `git rebase` | rebase |
 | `grba` | `git rebase --abort` | 中止 |
 | `grbc` | `git rebase --continue` | 繼續 |
@@ -305,7 +305,7 @@
 ## reflog / remote
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `grf` | `git reflog` | HEAD 移動過的歷史紀錄。reset 錯了之後救回 commit 的救命繩 |
 | `gr` | `git remote` | 列出遠端 |
 | `grv` | `git remote --verbose` | 列出遠端與 URL |
@@ -318,7 +318,7 @@
 ## reset / restore（⚠️ 這一區要特別小心）
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `grh` | `git reset` | mixed reset：取消暫存，但變更保留在檔案裡 |
 | `gru` | `git reset --` | `gru <file>`：取消暫存單一檔案 |
 | `grhs` | `git reset --soft` | 移動 HEAD，變更保留在暫存區。`grhs HEAD~1` = 撤銷上一個 commit |
@@ -334,7 +334,7 @@
 ## revert / rm
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `grev` | `git revert` | 建立一個新 commit 來抵銷指定 commit（不改寫歷史） |
 | `greva` | `git revert --abort` | 中止 |
 | `grevc` | `git revert --continue` | 繼續 |
@@ -344,7 +344,7 @@
 ## shortlog / show
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gcount` | `git shortlog --summary -n` | 依作者統計 commit 數量，並排序 |
 | `gsh` | `git show` | 顯示某個 commit 的內容 |
 | `gsps` | `git show --pretty=short --show-signature` | 用短格式顯示 commit，並驗證 GPG 簽章 |
@@ -352,7 +352,7 @@
 ## stash
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gsta` | `git stash push` | 把已追蹤檔案的變更收起來（Git < 2.13 用 `git stash save`） |
 | `gstu` | `git stash --include-untracked` | 連未追蹤的檔案一起收 |
 | `gstall` | `git stash --all` | 全部都收，包含被 ignore 的檔案 |
@@ -366,7 +366,7 @@
 ## status
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gst` | `git status` | status |
 | `gss` | `git status --short` | 短格式 |
 | `gsb` | `git status --short -b` | 短格式加分支名稱與 ahead/behind 數量 |
@@ -375,7 +375,7 @@
 ## submodule / svn
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gsi` | `git submodule init` | 初始化 submodule |
 | `gsu` | `git submodule update` | 更新 submodule |
 | `gsuri` | `git submodule update --recursive --init` | 遞迴初始化並更新所有 submodule（clone 完先跑這個） |
@@ -386,7 +386,7 @@
 ## tag
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gta` | `git tag --annotate` | 建立 annotated tag |
 | `gts` | `git tag -s` | 建立 GPG 簽署的 tag |
 | `gtv` | `git tag`，交給 `sort -V` | 依版本號排序列出 tag |
@@ -395,7 +395,7 @@
 ## worktree
 
 | Alias | 指令 | 說明 |
-|---|---|---|
+| --- | --- | --- |
 | `gwt` | `git worktree` | worktree |
 | `gwta` | `git worktree add` | 新增 worktree，可以在另一個目錄 checkout 別的分支 |
 | `gwtls` | `git worktree list` | 列出 worktree |
@@ -405,7 +405,7 @@
 ## WIP（快速暫停手邊的工作）
 
 | Alias / 函式 | 說明 |
-|---|---|
+| --- | --- |
 | `gwip` | 把所有變更加入暫存區，建立標題為 `--wip-- [skip ci]` 的暫時 commit，略過 hooks 和 GPG |
 | `gunwip` | 如果最後一個 commit 是 WIP commit，就撤銷它，把變更放回工作目錄 |
 | `gunwipall` | 撤銷最近所有連續的 `--wip--` commit |
@@ -418,7 +418,7 @@
 上面很多 alias 都靠這些函式決定分支名稱，也可以直接拿來用：
 
 | 函式 | 說明 |
-|---|---|
+| --- | --- |
 | `git_current_branch` | 回傳目前分支名稱 |
 | `git_current_user_email` | 回傳 `user.email` 設定值 |
 | `git_current_user_name` | 回傳 `user.name` 設定值 |
@@ -434,7 +434,7 @@
 習慣舊用法的人容易踩到：
 
 | Alias | 舊意思 | 現在的意思 | 舊功能改用 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `gap` | `git add --patch` | `git apply` | `gapa` |
 | `gcl` | `git config --list` | `git clone --recurse-submodules` | `gcf` |
 | `gdt` | `git difftool` | `git diff-tree ...` | 無替代 |

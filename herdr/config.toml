@@ -14,7 +14,7 @@ pane_gaps = false
 show_agent_labels_on_pane_borders = true
 
 [ui.sidebar.spaces]
-rows = [["workspace"]]
+rows = [["workspace"], ["branch", "git_status"]]
 
 [ui.sidebar.agents]
 rows = [
@@ -24,7 +24,6 @@ rows = [
   ],
   [
     "state_icon",
-    "machine",
     "agent",
     "state_text",
   ],
