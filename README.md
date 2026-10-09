@@ -5,7 +5,7 @@
 ```bash
 brew install --cask ghostty
 brew install neovim herdr
-brew install ripgrep fd lazygit tree-sitter fzf
+brew install ripgrep fd lazygit tree-sitter fzf imagemagick
 ```
 
 ```bash
