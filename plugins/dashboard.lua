@@ -1,7 +1,59 @@
 return {
 	{
+		"folke/which-key.nvim",
+		opts = {
+			spec = {
+				{ "<leader>v", group = "Vincent", icon = { icon = "", color = "cyan" } },
+				{ "<leader>vc", icon = { icon = "", hl = "WhichKeyIconOrange" } },
+				{ "<leader>vd", icon = { icon = "", hl = "WhichKeyIconBlue" } },
+				{ "<leader>vf", icon = { icon = "", hl = "WhichKeyIconGreen" } },
+				{ "<leader>vg", icon = { icon = "", hl = "WhichKeyIconCyan" } },
+				{ "<leader>vr", icon = { icon = "", hl = "WhichKeyIconYellow" } },
+				{ "<leader>vv", icon = { icon = "", hl = "WhichKeyIconPurple" } },
+				{ "<leader>vx", icon = { icon = "", hl = "WhichKeyIconRed" } },
+			},
+		},
+	},
+	{
 		"nvimdev/dashboard-nvim",
 		event = "VimEnter",
+		keys = {
+			{
+				"<leader>vc",
+				"<cmd>lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})<cr>",
+				desc = "Config",
+			},
+			{
+				"<leader>vd",
+				"<cmd>Dashboard<cr>",
+				desc = "Dashboard",
+			},
+			{
+				"<leader>vf",
+				"<cmd>lua Snacks.dashboard.pick('files')<cr>",
+				desc = "Find file",
+			},
+			{
+				"<leader>vg",
+				"<cmd>lua Snacks.dashboard.pick('live_grep')<cr>",
+				desc = "Find Text",
+			},
+			{
+				"<leader>vr",
+				"<cmd>lua Snacks.dashboard.pick('oldfiles')<cr>",
+				desc = "Recent files",
+			},
+			{
+				"<leader>vv",
+				"<cmd>DiffviewOpen<cr>",
+				desc = "Diffview",
+			},
+			{
+				"<leader>vx",
+				"<cmd>LazyExtras<cr>",
+				desc = "Lazy Extras",
+			},
+		},
 		dependencies = {
 			"nvim-tree/nvim-web-devicons",
 		},
@@ -181,6 +233,20 @@ return {
 					:totable()
 			end
 
+			-- 在其他區塊產生前移除 week_header 尾端空行，保留後續項目的行號計算。
+			local header = require("dashboard.theme.header")
+			local generate_header = header.generate_header
+			header.generate_header = function(config)
+				generate_header(config)
+				if not config.command and config.week_header and config.week_header.enable then
+					local count = vim.api.nvim_buf_line_count(config.bufnr)
+					local last = vim.api.nvim_buf_get_lines(config.bufnr, count - 1, count, false)[1]
+					if last and last:match("^%s*$") then
+						vim.api.nvim_buf_set_lines(config.bufnr, count - 1, count, false, {})
+					end
+				end
+			end
+
 			require("dashboard").setup({
 				theme = "hyper",
 				config = {
@@ -189,73 +255,14 @@ return {
 						concat = "",
 						append = header_rows(),
 					},
-					shortcut = {
-						{
-							icon = " ",
-							icon_hl = "Function",
-							desc = "Find file",
-							group = "Function",
-							key = "f",
-							action = "lua Snacks.dashboard.pick('files')",
-						},
-						{
-							icon = " ",
-							icon_hl = "String",
-							desc = "Recent files",
-							group = "String",
-							key = "r",
-							action = "lua Snacks.dashboard.pick('oldfiles')",
-						},
-						{
-							icon = " ",
-							icon_hl = "DiagnosticHint",
-							desc = "Find Text",
-							group = "DiagnosticHint",
-							key = "g",
-							action = "lua Snacks.dashboard.pick('live_grep')",
-						},
-						{
-							icon = " ",
-							icon_hl = "Number",
-							desc = "Config",
-							group = "Number",
-							key = "c",
-							action = "lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})",
-						},
-						{
-							icon = " ",
-							icon_hl = "Special",
-							desc = "Lazy Extras",
-							group = "Special",
-							key = "x",
-							action = "LazyExtras",
-						},
-						{
-							icon = "󰒲 ",
-							icon_hl = "Title",
-							desc = "Lazy",
-							group = "Title",
-							key = "l",
-							action = "Lazy",
-						},
-						{
-							icon = " ",
-							icon_hl = "DiagnosticError",
-							desc = "Quit",
-							group = "DiagnosticError",
-							key = "q",
-							action = "qa",
-						},
-					},
+					shortcut = {},
 					project = {
-						enable = false,
+						enable = true,
+						limit = 4,
 					},
 					mru = {
 						enable = true,
 						limit = 10,
-						icon = " ",
-						label = " Most Recent Files:",
-						cwd_only = false,
 					},
 					footer = {
 						"",
