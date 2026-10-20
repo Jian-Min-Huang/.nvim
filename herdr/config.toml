@@ -4,6 +4,7 @@ onboarding = false
 switch_ascii_input_source_in_prefix = true
 
 [keys]
+# The built-in Chinese input method intercepts the default Ctrl + B, preventing Herdr from automatically switching to English as configured above. So I use Ctrl + Enter instead.
 prefix = "ctrl + enter"
 
 [ui]
