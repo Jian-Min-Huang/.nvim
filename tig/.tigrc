@@ -4,3 +4,7 @@ set line-graphics = utf-8
 set commit-order = date
 set mouse = true
 set ignore-case = smart-case
+set vertical-split = no
+
+color cursor white color238 normal
+color cursor-blur color245 color235 normal
