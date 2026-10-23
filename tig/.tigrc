@@ -1,0 +1,6 @@
+# commit、作者、日期、樹狀圖 + 標題（commit-title 一定要放最後）
+set main-view = id:yes author:full date:default commit-title:yes,graph,refs,overflow=no
+set line-graphics = utf-8
+set commit-order = date
+set mouse = true
+set ignore-case = smart-case
