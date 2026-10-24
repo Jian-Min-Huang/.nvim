@@ -1,3 +1,12 @@
 [{*.kt,*.kts}]
 ktlint_standard_multiline-expression-wrapping = disabled
 ktlint_standard_keyword-spacing = disabled
+ktlint_standard_trailing-comma-on-call-site = disabled
+ktlint_standard_chain-method-continuation = disabled
+ktlint_standard_function-signature = disabled
+ktlint_standard_class-signature = disabled
+ktlint_standard_colon-spacing = disabled
+ktlint_standard_paren-spacing = disabled
+ktlint_standard_blank-line-before-declaration = disabled
+ktlint_standard_when-entry-bracing = disabled
+ktlint_standard_chain-wrapping = disabled
