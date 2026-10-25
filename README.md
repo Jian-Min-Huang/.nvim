@@ -25,6 +25,7 @@ rm -rf ~/.config/nvim/.git
 ## Configuration
 
 ```bash
+ln -s ~/.nvim/config ~/.config/nvim/lua/config
 ln -s ~/.nvim/plugins ~/.config/nvim/lua/plugins
 ln -s ~/.nvim/herdr/config.toml ~/.config/herdr/config.toml
 ln -s ~/.nvim/tig/.tigrc ~/.tigrc
