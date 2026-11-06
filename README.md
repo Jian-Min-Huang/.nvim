@@ -4,7 +4,7 @@
 
 ```bash
 brew install --cask ghostty
-brew install neovim herdr
+brew install neovim herdr yazi
 brew install ripgrep fd lazygit tree-sitter fzf imagemagick tig
 ```
 
@@ -45,4 +45,30 @@ launchctl print gui/$(id -u)/cc.jianminhuang.weatherinfo | grep 'last exit'
 
 ```bash
 pi --model deepseek/deepseek-flash:medium -p "/skill:add-commit-msg" | tee >(pbcopy)
+```
+
+## .zshrc
+
+```text
+alias nv='nvim'
+alias y='yazi'
+alias del='trash'
+alias ls='eza -aghlH --sort=Name --time-style relative --group-directories-last --git --octal-permissions --icons=auto'
+
+export EDITOR=nvim
+
+# pbcopy: also send OSC 52 so the attached terminal (e.g. Termius over SSH/herdr) gets the text
+pbcopy() {
+  local data
+  data=$(cat; print -n x); data=${data%x}
+  print -rn -- "$data" | command pbcopy
+  if [[ -t 1 ]]; then
+    printf '\033]52;c;%s\a' "$(print -rn -- "$data" | base64 | tr -d '\n')"
+  fi
+}
+
+# Fall back to the macOS built-in ssh-agent when SSH_AUTH_SOCK is unusable (e.g. remote SSH login)
+if [[ ! -S "$SSH_AUTH_SOCK" ]]; then
+  export SSH_AUTH_SOCK=$(launchctl print gui/$(id -u)/com.openssh.ssh-agent 2>/dev/null | awk '/SSH_AUTH_SOCK =>/ {print $3; exit}')
+fi
 ```
