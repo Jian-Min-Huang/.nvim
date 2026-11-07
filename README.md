@@ -32,6 +32,7 @@ ln -s ~/.nvim/tig/.tigrc ~/.tigrc
 ln -s ~/.nvim/yazi/yazi.toml ~/.config/yazi/yazi.toml
 ln -s ~/.nvim/yazi/init.lua ~/.config/yazi/init.lua
 ya pkg add yazi-rs/plugins:full-border
+ya pkg add yazi-rs/plugins:no-status
 ```
 
 ```bash
