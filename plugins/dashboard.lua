@@ -44,11 +44,6 @@ return {
 				desc = "Recent files",
 			},
 			{
-				"<leader>vv",
-				"<cmd>DiffviewOpen<cr>",
-				desc = "Diffview",
-			},
-			{
 				"<leader>vx",
 				"<cmd>LazyExtras<cr>",
 				desc = "Lazy Extras",

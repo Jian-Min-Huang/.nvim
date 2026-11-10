@@ -5,7 +5,7 @@
 ```bash
 brew install --cask ghostty
 brew install neovim herdr yazi
-brew install ripgrep fd lazygit tree-sitter fzf imagemagick tig
+brew install ripgrep fd lazygit tree-sitter fzf imagemagick tig git-delta
 ```
 
 ```bash
@@ -27,6 +27,8 @@ rm -rf ~/.config/nvim/.git
 ```bash
 ln -s ~/.nvim/config ~/.config/nvim/lua/config
 ln -s ~/.nvim/plugins ~/.config/nvim/lua/plugins
+mkdir -p "$HOME/Library/Application Support/lazygit"
+ln -s ~/.nvim/lazygit/config.yml "$HOME/Library/Application Support/lazygit/config.yml"
 ln -s ~/.nvim/herdr/config.toml ~/.config/herdr/config.toml
 ln -s ~/.nvim/tig/.tigrc ~/.tigrc
 ln -s ~/.nvim/yazi/yazi.toml ~/.config/yazi/yazi.toml
