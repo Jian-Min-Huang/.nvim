@@ -9,7 +9,6 @@ return {
 				{ "<leader>vf", icon = { icon = "", hl = "WhichKeyIconGreen" } },
 				{ "<leader>vg", icon = { icon = "", hl = "WhichKeyIconCyan" } },
 				{ "<leader>vr", icon = { icon = "", hl = "WhichKeyIconYellow" } },
-				{ "<leader>vv", icon = { icon = "", hl = "WhichKeyIconPurple" } },
 				{ "<leader>vx", icon = { icon = "", hl = "WhichKeyIconRed" } },
 			},
 		},
