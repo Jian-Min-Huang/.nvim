@@ -22,7 +22,24 @@
 
 ## herdr
 
-- <leader> + ?
-- <leader> + w
-- <leader> + g
-- <leader> + 1..9
+| 指令 | 說明 |
+| --- | --- |
+| <leader> + ? | keybinds |
+| <leader> + w | workspace navigation |
+| <leader> + g | session navigator |
+| <leader> + 1..9 | switch workspace |
+
+## LazyVim
+
+| 指令 | 說明 |
+| --- | --- |
+| <C-h> | Go to Left Window |
+| <C-j> | Go to Lower Window |
+| <C-k> | Go to Upper Window |
+| <C-l> | Go to Right Window |
+| <S-h> | Prev Buffer |
+| <S-l> | Next Buffer |
+| <leader>gg | GitUi (Root Dir) |
+| <leader>bb | Switch to Other Buffer |
+| <leader>e | Explorer Snacks (root dir) |
+| <C-/> | Terminal (Root Dir) |
