@@ -6,11 +6,7 @@
 | --- | --- |
 | `gfa && gb -vv` | `git fetch --all --tags --prune --jobs=10 && git branch -vv` |
 | `gprv` | `git pull --rebase -v` |
-| `gco` | `git checkout` |
 | `gcl` | `git clone --recurse-submodules` |
-| `gp` | `git push` |
-| `gm` | `git merge` |
-| `grb` | `git rebase` |
 | `gsi` | `git submodule init` |
 | `gsu` | `git submodule update` |
 | `gsuri` | `git submodule update --recursive --init` |
@@ -39,7 +35,6 @@
 | <C-l> | Go to Right Window |
 | <S-h> | Prev Buffer |
 | <S-l> | Next Buffer |
-| <leader>gg | GitUi (Root Dir) |
 | <leader>bb | Switch to Other Buffer |
-| <leader>e | Explorer Snacks (root dir) |
+| <leader>e | Explorer Snacks (Root Dir) |
 | <C-/> | Terminal (Root Dir) |
