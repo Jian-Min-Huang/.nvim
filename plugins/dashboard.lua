@@ -11,6 +11,7 @@ return {
 				{ "<leader>vg", icon = { icon = "󰊢", hl = "WhichKeyIconCyan" } },
 				{ "<leader>ve", icon = { icon = "", hl = "WhichKeyIconYellow" } },
 				{ "<leader>vx", icon = { icon = "", hl = "WhichKeyIconRed" } },
+				{ "<leader>vy", icon = { icon = "󰁥", hl = "WhichKeyIconPurple" } },
 			},
 		},
 	},
