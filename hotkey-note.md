@@ -37,4 +37,3 @@
 | <S-l> | Next Buffer |
 | <leader>bb | Switch to Other Buffer |
 | <leader>e | Explorer Snacks (Root Dir) |
-| <C-/> | Terminal (Root Dir) |
