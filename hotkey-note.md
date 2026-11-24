@@ -24,6 +24,9 @@
 | <leader> + w | workspace navigation |
 | <leader> + g | session navigator |
 | <leader> + 1..9 | switch workspace |
+| <leader> + v | split vertical |
+| <leader> + - | split horizontal |
+| <leader> + r | resize mode |
 
 ## LazyVim
 
